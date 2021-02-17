@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer')
+const axios = require('axios')
+const dotenv = require('dotenv').config()
 
-var axios = require('axios')
-
-async function getSnr() {
+async function getSNR() {
 
     const browser = await puppeteer.launch({
         headless: true
@@ -12,8 +12,8 @@ async function getSnr() {
 
     await page.goto('http://192.168.1.1/Main_Login.asp')
 
-    await page.type('#login_username', 'admin');
-    await page.type('[type="password"]', '4112345')
+    await page.type('#login_username', `${process.env.USER_NAME}`);
+    await page.type('[type="password"]', `${process.env.PASSWORD}`)
 
     await page.click('[onclick="login();"]')
 
@@ -40,4 +40,4 @@ async function getSnr() {
 
 }
 
-getSnr()
+getSNR()
